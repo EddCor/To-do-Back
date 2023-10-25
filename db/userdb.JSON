@@ -1,0 +1,27 @@
+[
+     {
+      "fullName": "John Doe",
+      "userName": "johndoe",
+      "password": "password123"
+    },
+     {
+      "fullName": "Alice Johnson",
+      "userName": "alicej",
+      "password": "securePwd456"
+    },
+     {
+      "fullName": "Bob Smith",
+      "userName": "bobsmith",
+      "password": "mySecretPwd789"
+    },
+     {
+      "fullName": "Emily White",
+      "userName": "emilyw",
+      "password": "strongPassword1"
+    },
+     {
+      "fullName": "David Brown",
+      "userName": "davidb",
+      "password": "p@ssw0rd"
+    }
+]
