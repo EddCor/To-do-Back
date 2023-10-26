@@ -15,7 +15,7 @@ router.get("/", (req, res, next) => {
   });
 
 
-//POST to signup
+//signup
 
 router.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync(13)
@@ -29,7 +29,7 @@ router.post('/signup', async (req, res) => {
       res.status(400).json(error)
     }
   })
-//POST to login
+// login
 router.post('/login', async (req, res) => {
     const { username, password } = req.body
     const potentialUser = await User.findOne({ username })
