@@ -17,6 +17,10 @@ app.use("/api", indexRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+const taskRoutes = require("./routes/task.routes");
+app.use("/task", taskRoutes);
+
+
 
 require("./error-handling")(app);
 

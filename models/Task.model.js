@@ -1,8 +1,10 @@
 const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
+
 
 const taskSchema = new Schema(
     {
-    text: {
+        itemName: {
         type: String,
         required: true,
     },
@@ -10,6 +12,8 @@ const taskSchema = new Schema(
         type: Date, 
         default: Date.now
     },
+    username: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    done:{type:Boolean}
 });
 
 const Task = model('Task', taskSchema);
