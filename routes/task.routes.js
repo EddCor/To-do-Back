@@ -1,18 +1,19 @@
 const Task = require("../models/Task.model")
 const { isAuthenticated } = require('../middlewares/routeGuard.middleware');
 const { route } = require("./task.routes");
-
 const router = require("express").Router();
 
-router.get("/userTask",isAuthenticated, async (req, res) =>{
 
- console.log(req.payload)   
+
+
+router.get("/userTask",isAuthenticated, async (req, res) =>{
+  
  try {
 const allTask = await Task.find({username:req.payload.userId})
-console.log(allTask)
+
 res.status(200).json(allTask)
  } catch (error) {
-    console.log(error)
+    
     res.status(500).json({errorMessage: "internal server error"})
  }
 })
@@ -28,49 +29,47 @@ res.status(200).json(allTask)
   
       res.status(201).json({ task: newTask})
     } catch (error) {
-      console.log(error)
+      
       res.status(400).json({ error: 'Failed to create a Task' });
     }
   });
 
 
 
-
-
 //update (edit) existing task
-router.put('/:id', async (req, res) => {
-    console.log(req.body)
+router.put('/:itemId', isAuthenticated, async (req, res) => {
+    const { itemId } = req.params;
+    const { name } = req.body;
+
     try {
-      const responseFromAPI = await fetch(
-        `https://ih-crud-api.herokuapp.com/characters/${req.params.id}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify(req.body),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-      if (responseFromAPI.ok) {
-        const characterFromAPI = await responseFromAPI.json()
-        res.json({ character: characterFromAPI })
+      const item = await Task.findByIdAndUpdate(
+        itemId,
+        { itemName:name },
+        { new: true }
+      );
+
+      if (!item) {
+        return res.status(404).json({ message: 'Item not found or does not belong to the user' });
       }
+
+      res.status(200).json(item);
     } catch (error) {
-      console.error(error)
+      console.error(error);
+      res.status(500).json({ message: 'Error updating the item' });
     }
-  })
+});
+
+
 
 
 //Delete the task
-  
-
   router.delete("/:itemId", async (req, res) => {
     try {
       const { itemId } = req.params;
-      console.log (itemId)
+      
       
       const deletedItem = await Task.findByIdAndDelete(itemId);
-      console.log(deletedItem) 
+      
   
       if (!deletedItem) {
         return res.status(404).json({ error: "Item not found" });

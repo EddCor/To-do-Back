@@ -20,12 +20,12 @@ router.get("/", (req, res, next) => {
 router.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync(13)
     const passwordHash = bcrypt.hashSync(req.body.password, salt)
-    console.log(passwordHash)
+    
     try {
       const newUser = await User.create({ ...req.body, passwordHash }) 
       res.status(201).json(newUser)
     } catch (error) {
-      console.log(error)
+      
       res.status(400).json(error)
     }
   })

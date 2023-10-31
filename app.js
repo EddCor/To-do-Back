@@ -20,6 +20,9 @@ app.use("/auth", authRoutes);
 const taskRoutes = require("./routes/task.routes");
 app.use("/task", taskRoutes);
 
+const taskDoneRoutes = require("./routes/taskDone.routes");
+app.use("/taskDone", taskDoneRoutes);
+
 
 
 require("./error-handling")(app);

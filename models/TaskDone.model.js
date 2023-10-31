@@ -1,15 +1,17 @@
 const { Schema, model } = require("mongoose");
-
 const taskDoneSchema = new Schema(
     {
-    text: {
-        type: String,
-        required: true,
-    },
-    startDate: {
-        type: Date, 
-        default: Date.now
-    },
+
+    finishedTask:{
+        type:[Schema.Types.ObjectId],
+    ref:"Task"
+    } ,  
+    owner:{
+        type:Schema.Types.ObjectId,
+        ref:"User"
+    }    
+
+
 });
 
 const TaskDone = model('TaskDone', taskDoneSchema);
